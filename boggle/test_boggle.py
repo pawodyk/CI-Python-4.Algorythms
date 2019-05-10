@@ -1,5 +1,6 @@
 import unittest
 import boggle
+from string import ascii_uppercase
 
 # class test_boogle(unittest.TestCase):
 #     def test_is_this_thing_on(self):
@@ -23,6 +24,7 @@ class TestBoggle(unittest.TestCase):
         """
         Test is to ensure that the total size of the grid is equal to width * height
         """
+
         grid = boggle.make_grid(2, 3)
         self.assertEqual(len(grid), 6)
 
@@ -30,9 +32,20 @@ class TestBoggle(unittest.TestCase):
         """
         Test to ensure that all of the coordinates inside of the grid can be accessed
         """
+
         grid = boggle.make_grid(2, 2)
         self.assertIn((0, 0), grid)
         self.assertIn((0, 1), grid)
         self.assertIn((1, 0), grid)
         self.assertIn((1, 1), grid)
         self.assertNotIn((2, 2), grid)
+
+
+    def test_grid_is_filled_with_letters(self):
+        """
+        Ensures that each of the coordinates inthe grid contains uppercase letters
+        """
+
+        grid = boggle.make_grid(2,3)
+        for letter in grid.values():
+            self.assertIn(letter, ascii_uppercase)
