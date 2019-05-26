@@ -40,31 +40,40 @@ class TestBoggle(unittest.TestCase):
         self.assertIn((1, 1), grid)
         self.assertNotIn((2, 2), grid)
 
-
     def test_grid_is_filled_with_letters(self):
         """
         Ensures that each of the coordinates inthe grid contains uppercase letters
         """
 
-        grid = boggle.make_grid(2,3)
+        grid = boggle.make_grid(2, 3)
         for letter in grid.values():
             self.assertIn(letter, ascii_uppercase)
 
-
-    def test_neighbours_of_a_position(self):
+    def test_neighbours_of_position(self):
         """
         Ensures that a position has 8 neighbours
         """
 
-        coords = (1,2)
+        coords = (1, 2)
         neighbours = boggle.neighbours_of_postion(coords)
-        self.assertIn((0,1), neighbours)
-        self.assertIn((0,2), neighbours)
-        self.assertIn((0,3), neighbours)
-        self.assertIn((1,1), neighbours)
-        self.assertIn((1,3), neighbours)
-        self.assertIn((2,1), neighbours)
-        self.assertIn((2,2), neighbours)
-        self.assertIn((2,3), neighbours)
-        
+        self.assertIn((0, 1), neighbours)
+        self.assertIn((0, 2), neighbours)
+        self.assertIn((0, 3), neighbours)
+        self.assertIn((1, 1), neighbours)
+        self.assertIn((1, 3), neighbours)
+        self.assertIn((2, 1), neighbours)
+        self.assertIn((2, 2), neighbours)
+        self.assertIn((2, 3), neighbours)
 
+    def test_all_grid_neighbours(self):
+        """
+        Ensure that all of the grid positions have neighbours
+        """
+
+        grid = boggle.make_grid(2, 2)
+        neighbours = boggle.all_grid_neighbours(grid)
+        self.assertEqual(len(neighbours), len(grid))
+        for pos in grid:
+            others = list(grid)
+            others.remove(pos)
+            self.assertListEqual(sorted(neighbours[pos]), sorted(others))
